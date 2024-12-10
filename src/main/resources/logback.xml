@@ -1,0 +1,52 @@
+<configuration>
+    <!-- Appender and Logger configurations go here -->
+    <!-- Appender means where do you want to print your logs-->
+    <!-- class = "prints in console" -->
+    <appender name = "myConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+<!--    &lt;!&ndash; class = "prints in File" &ndash;&gt;-->
+<!--    <appender name = "myFileAppender" class="ch.qos.logback.core.FileAppender">-->
+<!--        &lt;!&ndash; encoder => how you wanna print the logs &ndash;&gt;-->
+<!--        <encoder>-->
+<!--            <pattern>-->
+<!--                &lt;!&ndash; Time : Thread : Level {with 5 spaces to right} : Logger{upto 36 character} - Message : New Line &ndash;&gt;-->
+<!--                %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n-->
+<!--            </pattern>-->
+<!--        </encoder>-->
+<!--        <file>-->
+<!--            &lt;!&ndash; mention the path where you want to store &ndash;&gt;-->
+<!--            journalApp.log-->
+<!--        </file>-->
+<!--    </appender>-->
+
+    <!-- if you want to log file according to size and time, so it will create new one -->
+    <appender name = "myFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>
+            <!-- mention the path where you want to store -->
+            journalApp.log
+        </file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>journalApp-%d{yy-MM-dd_HH-mm}.%i.log</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+                <!-- Time : Thread : Level {with 5 spaces to right} : Logger{upto 36 character} - Message : New Line -->
+                %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="myConsoleAppender" />
+        <appender-ref ref="myFileAppender" />
+    </root>
+</configuration>
